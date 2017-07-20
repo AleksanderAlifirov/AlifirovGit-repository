@@ -1,7 +1,8 @@
-print("Hellow world")
-print("What's up")
-print("Change again)
-print("hi, feature/goodbye")
-print("Change in feature-advanced")
+<<<<<<< HEAD
+print("Hellow world;")
+print("What's up;")
+print("Change again;")
+print("hi, feature/goodbye;")
+
 	print("New changes for feature advanced")
 	print("advanced")
