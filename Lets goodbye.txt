@@ -1,1 +1,3 @@
 print("Lets say goodbye")
+print("Davai dosvidaniya")
+print("See you later")
