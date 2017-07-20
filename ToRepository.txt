@@ -1,2 +1,1 @@
 print("input to repository")
-print("ok")
