@@ -1,4 +1,4 @@
-print("Hellow world")
-print("What's up")
-print("Change again)
-print("hi, feature/goodbye")
+print("Hellow world;")
+print("What's up;")
+print("Change again;")
+print("hi, feature/goodbye;")
