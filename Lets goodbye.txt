@@ -1,6 +1,0 @@
-print("Lets say goodbye")
-print("Davai dosvidaniya")
-print("See you later")
-
-one, two, three - I'm going to find you
-
