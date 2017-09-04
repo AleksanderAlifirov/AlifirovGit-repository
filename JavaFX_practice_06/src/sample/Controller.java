@@ -13,7 +13,7 @@ public class Controller {
     }
 
 
-    public void thirdtButtonAction(ActionEvent actionEvent) {
+    public void thirdButtonAction(ActionEvent actionEvent) {
         System.out.println("Button3 pressed");
     }
 }
