@@ -1,16 +1,26 @@
 package ru.Javahome.Snake.Main;
 
 public class Referee {
+    private char[][] field;
 
-    public static boolean checkWin(char[][] field) {
+    public Referee(char[][] gameField) {
+             this.field = gameField;
 
-        int count;
-
-
-        return;
     }
 
-    public boolean isAnyStringWin(char[][] field){
+    public boolean checkWin(HumanPlayer player) {
+        boolean win = false;
+
+        if (isAnyStringWin() == true || isColumnWin() == true || isDiagWin("right") == true ||
+                isDiagWin("left") == true ) {
+            System.out.println(player.getName() + " Победитель");
+            win = true;
+        }
+
+        return win;
+    }
+
+    public boolean isAnyStringWin(){
         boolean win = false;
         int countZero;
         int countCross;
@@ -30,7 +40,7 @@ public class Referee {
         return win;
     }
 
-    public boolean isColumnWin (char[][] field){
+    public boolean isColumnWin (){
         boolean win = false;
         int countZero;
         int countCross;
@@ -49,10 +59,11 @@ public class Referee {
         return win;
     }
 
-    public boolean isDiagWin(char[][] field, String side){
+    public boolean isDiagWin(String side){
         boolean win = false;
         int countZero;
         int countCross;
+
         switch(side){
          case "right" :
             for (int j = 0; j < 3; j++){
@@ -82,7 +93,7 @@ public class Referee {
                      break;
                  }
              }
-
+         break;
         }
 
         return win;
