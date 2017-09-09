@@ -8,16 +8,16 @@ public class Referee {
 
     }
 
-    public boolean checkWin(HumanPlayer player) {
+    public boolean checkWin() {
         boolean win = false;
 
         if (isAnyStringWin() == true || isColumnWin() == true || isDiagWin("right") == true ||
                 isDiagWin("left") == true ) {
-            System.out.println(player.getName() + " Победитель");
+            System.out.println("Победитель ");
             win = true;
         }
 
-        return win;
+        return win; // разобраться с победителем, доделать выбор клетки компьютером, т.к. он выбирает самую последнюю
     }
 
     public boolean isAnyStringWin(){

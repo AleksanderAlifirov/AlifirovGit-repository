@@ -4,6 +4,7 @@ public class Field {
     private boolean emptySpacePresent;
     private char symbol;
     private char[][] gameField;
+    private int size = 3;
 
     public Field(char[][] gameField, boolean emptySpacePresent){
         this.gameField = gameField;
@@ -11,15 +12,15 @@ public class Field {
     }
 
     public void initField(){
-        for(int i=0; i < 3; i++){
-            for (int j=0; j < 3; j++)
+        for(int i=0; i < size; i++){
+            for (int j=0; j < size; j++)
                 gameField[i][j] = '*';
         }
     }
 
     public void printField(){
-        for (int i = 0; i < 3; i++){
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < size; i++){
+            for (int j = 0; j < size; j++) {
                 System.out.print(gameField[i][j] + " ");
             }
             System.out.print("\n");
@@ -34,7 +35,7 @@ public class Field {
         return emptySpacePresent;
     }
 
-    public char getGameField(int i, int j) {
+    public char getCellGameField(int i, int j) {
         return gameField[i][j];
     }
 
@@ -44,5 +45,9 @@ public class Field {
 
     public void setGameField(int i, int j, char symbol) {
         gameField[i][j] = symbol;
+    }
+
+    public int getSize() {
+        return size;
     }
 }

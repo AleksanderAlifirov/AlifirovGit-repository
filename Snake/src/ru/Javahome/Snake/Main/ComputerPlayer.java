@@ -22,7 +22,10 @@ public class ComputerPlayer extends Cell implements Player   {
             index = random.nextInt(cell.size());
            // i = random.nextInt(2);
             //j = random.nextInt(2);
-        } else index = chooseOptimalIndex(cell, field);
+        } else {
+            index = chooseIndexForDefense(cell, field);
+        }
+        if (index == -1) index = chooseOptimalIndexForWin(cell, field);
     }
 
     public Cell getCell(int index) {
@@ -44,11 +47,11 @@ public class ComputerPlayer extends Cell implements Player   {
                     if (i == 2 && j == 0) cell.add(new Cell(i, j, LEFT_LOWER_CORNER));
                     if (i == 2 && j == 2) cell.add(new Cell(i, j, RIGHT_LOWER_CORNER));
                     if (i == 0 && j == 2) cell.add(new Cell(i, j, RIGHT_UPPER_CORNER));
-                    if (i == 0 && j!= 0) cell.add(new Cell(i, j, TypeOfCell.UPPER_BOUNDARY));
+                    if (i > 0 && i < 2 && j > 0 && j < 2 ) cell.add(new Cell(i, j, TypeOfCell.CENTER_AREA));
                     if (i == 2 && 0 < j  && j < 2) cell.add(new Cell(i, j, TypeOfCell.LOWER_BOUNDARY));
                     if ( 0 < i && i < 2 && j == 2) cell.add(new Cell(i, j, TypeOfCell.RIGHT_BOUNDARY));
                     if (i == 0 && 0 < j  && j < 2) cell.add(new Cell(i, j, TypeOfCell.UPPER_BOUNDARY));
-                    if (0 < i && i < 2 && j == 0 ) cell.add(new Cell(i, j, TypeOfCell.UPPER_BOUNDARY));
+                    if (0 < i && i < 2 && j == 0 ) cell.add(new Cell(i, j, TypeOfCell.LEFT_BOUNDARY));
 
                 }
             }
@@ -62,40 +65,114 @@ public class ComputerPlayer extends Cell implements Player   {
         moveNumber++;
     }
 
-    public int chooseOptimalIndex(ArrayList<Cell> cell, Field gameField){
+    public int chooseOptimalIndexForWin(ArrayList<Cell> cell, Field gameField){
         int place = -1;
-        TypeOfCell typeOfCell = null;
+        //TypeOfCell typeOfCell = null;
         //Iterator<Cell> iter = cell.iterator();
      for(Cell o : cell) {
          switch (o.getTypeOfCell()) {
              case RIGHT_UPPER_CORNER:
+                 if (gameField.getCellGameField(getI(o) + 1, getJ(o)) == 'o' || gameField.getCellGameField(getI(o), getJ(o) - 1) == 'o' ||
+                         gameField.getCellGameField(getI(o) + 1, getJ(o) - 1) == 'o') place = cell.indexOf(o);
                  break;
              case RIGHT_LOWER_CORNER:
+                 if (gameField.getCellGameField(getI(o) - 1, getJ(o)) == 'o' || gameField.getCellGameField(getI(o), getJ(o) - 1) == 'o' ||
+                         gameField.getCellGameField(getI(o) - 1, getJ(o) - 1) == 'o') place = cell.indexOf(o);
                  break;
              case LEFT_LOWER_CORNER:
+                 if (gameField.getCellGameField(getI(o), getJ(o) + 1) == 'o' || gameField.getCellGameField(getI(o) - 1, getJ(o)) == 'o' ||
+                         gameField.getCellGameField(getI(o) - 1, getJ(o) + 1) == 'o') place = cell.indexOf(o);
                  break;
              case LEFT_UPPER_CORNER:
+                if (gameField.getCellGameField(getI(o), getJ(o) + 1) == 'o' || gameField.getCellGameField(getI(o) + 1, getJ(o)) == 'o' ||
+                        gameField.getCellGameField(getI(o) + 1, getJ(o) + 1) == 'o') place = cell.indexOf(o);
                  break;
              case CENTER_AREA:
+                 if (gameField.getCellGameField(getI(o) + 1, getJ(o)) == 'o' || gameField.getCellGameField(getI(o), getJ(o) + 1) == 'o' ||
+                       gameField.getCellGameField(getI(o) - 1, getJ(o)) == 'o' || gameField.getCellGameField(getI(o), getJ(o) - 1) == 'o' ||
+                       gameField.getCellGameField(getI(o) + 1, getJ(o) + 1) == 'o' || gameField.getCellGameField(getI(o) - 1, getJ(o) - 1) == 'o' ||
+                       gameField.getCellGameField(getI(o) + 1, getJ(o) - 1) == 'o' || gameField.getCellGameField(getI(o) - 1, getJ(o) + 1) == 'o') place = cell.indexOf(o);
                  break;
              case LOWER_BOUNDARY:
+                 if (gameField.getCellGameField(getI(o), getJ(o) + 1) == 'o' || gameField.getCellGameField(getI(o), getJ(o) - 1) == 'o' ||
+                         gameField.getCellGameField(getI(o) - 1, getJ(o)) == 'o') place = cell.indexOf(o);
                  break;
              case UPPER_BOUNDARY:
+                 if (gameField.getCellGameField(getI(o), getJ(o) + 1) == 'o' || gameField.getCellGameField(getI(o) , getJ(o) - 1) == 'o' ||
+                         gameField.getCellGameField(getI(o) + 1, getJ(o)) == 'o') place = cell.indexOf(o);
                  break;
              case RIGHT_BOUNDARY:
+                 if (gameField.getCellGameField(getI(o), getJ(o) - 1) == 'o' || gameField.getCellGameField(getI(o) + 1, getJ(o)) == 'o' ||
+                         gameField.getCellGameField(getI(o) - 1, getJ(o)) == 'o') place = cell.indexOf(o);
                  break;
              case LEFT_BOUNDARY:
+                 if (gameField.getCellGameField(getI(o), getJ(o) + 1) == 'o' || gameField.getCellGameField(getI(o) + 1, getJ(o)) == 'o' ||
+                         gameField.getCellGameField(getI(o) - 1, getJ(o)) == 'o') place = cell.indexOf(o);
                  break;
          }
      }
-      //  for(Cell o : cell){
-        //    if (gameField.getGameField(getI(o) + 1, getJ(o)) == 'o' || gameField.getGameField(getI(o), getJ(o) + 1) == 'o' ||
-            //        gameField.getGameField(getI(o) - 1, getJ(o)) == 'o' || gameField.getGameField(getI(o), getJ(o) + 1) == 'o' ||
-          //          gameField.getGameField(getI(o) + 1, getJ(o) + 1) == 'o' || gameField.getGameField(getI(o) - 1, getJ(o) - 1) == 'o' ||
-              //      gameField.getGameField(getI(o) + 1, getJ(o) - 1) == 'o' || gameField.getGameField(getI(o) - 1, getJ(o) + 1) == 'o') {
-             //place = cell.indexOf(o);
-           // }
-       // }
+
+        return place;
+    }
+
+
+    public int chooseIndexForDefense(ArrayList<Cell> cell, Field gameField){
+        int place = -1;
+
+        for(Cell o : cell) {
+            switch (o.getTypeOfCell()) {
+                case RIGHT_UPPER_CORNER:
+                    if (gameField.getCellGameField(getI(o) + 1, getJ(o)) == 'x'  && gameField.getCellGameField(getI(o) + 2, getJ(o)) == 'x' ||
+                            gameField.getCellGameField(getI(o), getJ(o) - 1) == 'x' && gameField.getCellGameField(getI(o), getJ(o) - 2) == 'x' ||
+                            gameField.getCellGameField(getI(o) + 1, getJ(o) - 1) == 'x' && gameField.getCellGameField(getI(o) + 2, getJ(o) - 2) == 'x') place = cell.indexOf(o);
+                    break;
+                case RIGHT_LOWER_CORNER:
+                    if (gameField.getCellGameField(getI(o) - 1, getJ(o)) == 'x' && gameField.getCellGameField(getI(o) - 2, getJ(o)) == 'x' ||
+                            gameField.getCellGameField(getI(o), getJ(o) - 1) == 'x' && gameField.getCellGameField(getI(o), getJ(o) - 2) == 'x' ||
+                            gameField.getCellGameField(getI(o) - 1, getJ(o) - 1) == 'x' && gameField.getCellGameField(getI(o) - 2, getJ(o) - 2) == 'x') place = cell.indexOf(o);
+                    break;
+                case LEFT_LOWER_CORNER:
+                    if (gameField.getCellGameField(getI(o), getJ(o) + 1) == 'x' && gameField.getCellGameField(getI(o), getJ(o) + 2) == 'x' ||
+                            gameField.getCellGameField(getI(o) - 1, getJ(o)) == 'x' && gameField.getCellGameField(getI(o) - 2, getJ(o)) == 'x' ||
+                            gameField.getCellGameField(getI(o) - 1, getJ(o) + 1) == 'x' && gameField.getCellGameField(getI(o) - 2, getJ(o) + 2) == 'x') place = cell.indexOf(o);
+                    break;
+                case LEFT_UPPER_CORNER:
+                    if (gameField.getCellGameField(getI(o), getJ(o) + 1) == 'x' && gameField.getCellGameField(getI(o), getJ(o) + 2) == 'x' ||
+                            gameField.getCellGameField(getI(o) + 1, getJ(o)) == 'x' && gameField.getCellGameField(getI(o) + 2, getJ(o)) == 'x' ||
+                            gameField.getCellGameField(getI(o) + 1, getJ(o) + 1) == 'x' && gameField.getCellGameField(getI(o) + 2, getJ(o) + 2) == 'x') place = cell.indexOf(o);
+                    break;
+                case CENTER_AREA:
+                    if (gameField.getCellGameField(getI(o) + 1, getJ(o)) == 'x' && gameField.getCellGameField(getI(o) - 1, getJ(o)) == 'x' ||
+                            gameField.getCellGameField(getI(o), getJ(o) + 1) == 'x' && gameField.getCellGameField(getI(o), getJ(o) + 1) == 'x' ||
+                            gameField.getCellGameField(getI(o) + 1, getJ(o) + 1) == 'x' && gameField.getCellGameField(getI(o) - 1, getJ(o) - 1) == 'x' ||
+                            gameField.getCellGameField(getI(o) + 1, getJ(o) - 1) == 'x' && gameField.getCellGameField(getI(o) - 1, getJ(o) + 1) == 'x') place = cell.indexOf(o);
+                    break;
+                case LOWER_BOUNDARY:
+                    if (gameField.getCellGameField(getI(o), getJ(o) + 1) == 'x' && gameField.getCellGameField(getI(o), getJ(o) - 1) == 'x' ||
+                            gameField.getCellGameField(getI(o) - 1, getJ(o)) == 'x' && gameField.getCellGameField(getI(o) - 2, getJ(o)) == 'x') place = cell.indexOf(o);
+                    break;
+                case UPPER_BOUNDARY:
+                    if (gameField.getCellGameField(getI(o), getJ(o) + 1) == 'x' && gameField.getCellGameField(getI(o) , getJ(o) - 1) == 'x' ||
+                            gameField.getCellGameField(getI(o) + 1, getJ(o)) == 'x' && gameField.getCellGameField(getI(o) + 2, getJ(o)) == 'x') place = cell.indexOf(o);
+                    break;
+                case RIGHT_BOUNDARY:
+                    if (gameField.getCellGameField(getI(o), getJ(o) - 1) == 'x' && gameField.getCellGameField(getI(o), getJ(o) - 2) == 'x'||
+                            gameField.getCellGameField(getI(o) + 1, getJ(o)) == 'x' && gameField.getCellGameField(getI(o) - 1, getJ(o)) == 'x') place = cell.indexOf(o);
+                    break;
+                case LEFT_BOUNDARY:
+                    if (gameField.getCellGameField(getI(o), getJ(o) + 1) == 'x' && gameField.getCellGameField(getI(o), getJ(o) + 2) == 'x' ||
+                            gameField.getCellGameField(getI(o) + 1, getJ(o)) == 'x' && gameField.getCellGameField(getI(o) - 1, getJ(o)) == 'x') place = cell.indexOf(o);
+                    break;
+            }
+        }
+
+
+
+        /*    for (int i=0; i < gameField.getSize(); i++){
+                for (int j = 0; j < gameField.getSize(); i++){
+                    if (gameField.getCellGameField(i, j) == 'x')
+                }
+            }*/
 
         return place;
     }

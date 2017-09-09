@@ -22,18 +22,26 @@ public class Main {
         System.out.println ("Здравствуйте! Меня зовут ASUS");
 
         do{
+            if (player1.getMoveNumber() >= 4) {System.out.println("НИЧЬЯ"); break;}
             player1.checkField(pole);
             player1.inputSymbol(pole);
             pole.setGameField(player1.getI(), player1.getJ(), 'x');
             player1.moveNumberIncrease();
             pole.printField();
+            if (referee.checkWin()) {
+                System.out.print( " " + player1.getName());
+                break;
+            }
             compPlayer.checkField(pole);
             compPlayer.inputSymbol(pole);
             pole.setGameField(compPlayer.getI(compPlayer.getCell(compPlayer.getIndex())), compPlayer.getJ(compPlayer.getCell(compPlayer.getIndex())), 'o');
             compPlayer.moveNumberIncrease();
             pole.printField();
-
-        } while (!referee.checkWin(player1));
+            if (referee.checkWin()){
+                System.out.println ("Победитель ASUS");
+                break;
+            }
+        } while (true);
 
 
 

@@ -1,0 +1,13 @@
+package ru.Javahome.Snake.Main;
+
+public enum TypeOfCell {
+    RIGHT_UPPER_CORNER,
+    RIGHT_LOWER_CORNER,
+    LEFT_LOWER_CORNER,
+    LEFT_UPPER_CORNER,
+    CENTER_AREA,
+    LEFT_BOUNDARY,
+    RIGHT_BOUNDARY,
+    LOWER_BOUNDARY,
+    UPPER_BOUNDARY
+}
