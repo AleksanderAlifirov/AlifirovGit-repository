@@ -25,7 +25,7 @@ ext {
         groovyVersion = '2.4.15'
         gebVersion = '2.1'
         seleniumVersion = '2.51.0'
-        chromeDriverVersion = '2.19'
+        chromeDriverVersion = '2.41'
         phantomJsVersion = '1.9.7'
     }
     // строка соединения с БД, где сохранять результаты запусков тестов
@@ -48,8 +48,10 @@ dependencies {
     testCompile("org.spockframework:spock-core:1.0-groovy-2.4") {
         exclude group: "org.codehaus.groovy"
     }
-
+    // If using JUnit, need to depend on geb-junit (3 or 4)
+    testCompile "org.gebish:geb-junit4:$gebVersion"
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    
     // Drivers
     testCompile "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
 }
