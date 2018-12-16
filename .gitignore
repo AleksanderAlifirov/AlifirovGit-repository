@@ -1,0 +1,16 @@
+build
+classes
+.gradle
+*.log
+.DS_Store
+*.ipr
+*.iml
+*.iws
+*.mdmp
+out
+.idea
+/.nb-gradle/
+/libs/
+/reports/
+tasks/exclude
+tasks/example
